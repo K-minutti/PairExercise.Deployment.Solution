@@ -1,7 +1,9 @@
+const pg = require('pg')
+pg.defaults.ssl = true;
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
 const dbName = process.env.NODE_ENV === 'test' ? `${pkg.name}-test` : pkg.name
-const dbUrl = process.env.DATABASE_URL || `postgres://localhost:5432/${dbName}`
+const dbUrl = process.env.DATABASE_URL || `postgres://admin:guest@localhost:5432/${dbName}?ssl=true`
 const client = new Sequelize(dbUrl, { logging: false, operatorsAliases: false })
 
 module.exports = client
